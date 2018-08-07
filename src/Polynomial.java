@@ -59,11 +59,37 @@ public class Polynomial {
     }
 
     public Polynomial add(Polynomial p2) {
-        return new Polynomial("as");
+        List<Integer> polylist1 = this.coefficients;
+        List<Integer> polylist2 = p2.coefficients;
+        List<Integer> newpoly = null;
+        int size1 = polylist1.size();
+        int size2 = polylist2.size();
+        int size = size1;
+        if(size1 < size2) size = size2;
+        int value;
+        for(int i=0; i<size; i++){
+            value = polylist1.get(i) + polylist2.get(i);
+            newpoly.add(i,value);
+        }
+        System.out.println(newpoly);
+        return new Polynomial(newpoly);
     }
 
     public Polynomial subtract(Polynomial p2) {
-        return new Polynomial("as");
+        List<Integer> polylist1 = this.coefficients;
+        List<Integer> polylist2 = this.coefficients;
+        List<Integer> newpoly = null;
+        int size1 = polylist1.size();
+        int size2 = polylist2.size();
+        int size = size1;
+        if(size1<size2) size=size2;
+        int value;
+        for(int i=0; i<size; i++){
+            value = polylist1.get(i) - polylist2.get(i);
+            newpoly.add(i,value);
+        }
+        System.out.println(newpoly);
+        return new Polynomial(newpoly);
     }
 
     public Polynomial multiply(Polynomial p2) {
@@ -83,6 +109,7 @@ public class Polynomial {
     	  for (int i=1;i<p1array.size();i++) {
     	    ans = ans.add(multiplyRecursive(p2array,i,p1array.get(1)));
     	  }
+    	  System.out.println(ans.coefficients);
     	  return ans;
     }
     Polynomial multiplyRecursive(List<Integer> p1, int index, int coeff) {
