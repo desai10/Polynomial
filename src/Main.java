@@ -1,7 +1,7 @@
 public class Main {
 
     public static void main(String []args) {
-        System.out.println("Hello!");
+        Polynomial p = new Polynomial("4x^2 + 2x + 3");
     }
 
 }
