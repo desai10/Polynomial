@@ -50,21 +50,28 @@ public class Polynomial {
         for(Map.Entry<Integer, Integer> entry : ma.entrySet()) {
             coefficients.set(entry.getKey(), entry.getValue());
         }
-
-        System.out.println(coefficients);
     }
 
     public Polynomial(List<Integer> polyCoeffs) {
         coefficients = polyCoeffs;
     }
 
-    public String toString(Polynomial p) {
+    public String toString() {
     	String st = "";
-    	  List<Integer> parray = p.coefficients;
-    	  st  = new Integer(parray.get(0)).toString() + st;
-    	  for (int i=0;i<parray.size();i++) {
-    	    if (parray.get(i)!=0)
-    	    st  = new Integer(parray.get(i)).toString()+ "x^"+ new Integer(i).toString() + st;
+    	  List<Integer> parray = coefficients;
+            if (parray.get(0) > 0) {
+                st  = " + " + new Integer(parray.get(0)).toString() + st;
+            }
+            else if(parray.get(0) < 0) {
+                st  = new Integer(parray.get(0)).toString() + st;
+            }
+    	  for (int i=1;i<parray.size();i++) {
+    	    if (parray.get(i) > 0) {
+    	        st = " + " + Integer.toString(parray.get(i)) + "x^" + Integer.toString(i) + st;
+            }
+            else if(parray.get(i) < 0) {
+                st  = new Integer(parray.get(i)).toString()+ "x^"+ new Integer(i).toString() + st;
+            }
     	  }
     	  return st;
     }
@@ -83,7 +90,7 @@ public class Polynomial {
             minS = size1;
             maxPoly = polylist2;
         }
-        for(int i=0;i<=size;i++) {
+        for(int i=0;i<size;i++) {
             newpoly.add(0);
         }
         int value;
@@ -114,7 +121,7 @@ public class Polynomial {
             maxPoly = polylist2;
         }
 
-        for(int i=0;i<=size;i++){
+        for(int i=0;i<size;i++){
             newpoly.add(0);
         }
         int value;
@@ -130,7 +137,6 @@ public class Polynomial {
         for(int i=minS; i<size; i++){
             newpoly.set(i,multiplier * maxPoly.get(i));
         }
-        System.out.println(newpoly);
         return new Polynomial(newpoly);
     }
 
@@ -151,7 +157,6 @@ public class Polynomial {
     	  for (int i=1;i<p1array.size();i++) {
     	    ans = ans.add(multiplyRecursive(p2array,i,p1array.get(1)));
     	  }
-    	  System.out.println(ans.coefficients);
     	  return ans;
     }
     Polynomial multiplyRecursive(List<Integer> p1, int index, int coeff) {
