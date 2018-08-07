@@ -57,7 +57,16 @@ public class Polynomial {
     public Polynomial(List<Integer> polyCoeffs) {
         coefficients = polyCoeffs;
     }
-
+    public String toString(Polynomial p) {
+    	String st = "";
+    	  ArrayList<Integer> parray = p.coefficients;
+    	  st  = new Integer(parray.get(0)).toString() + st;
+    	  for (int i=0;i<parray.size();i++) {
+    	    if (parray.get(i)!=0)
+    	    st  = new Integer(parray.get(i)).toString()+ "x^"+ new Integer(i).toString() + st;
+    	  }
+    	  return st;
+    }
     public Polynomial add(Polynomial p2) {
         List<Integer> polylist1 = this.coefficients;
         List<Integer> polylist2 = p2.coefficients;
