@@ -57,9 +57,10 @@ public class Polynomial {
     public Polynomial(List<Integer> polyCoeffs) {
         coefficients = polyCoeffs;
     }
+
     public String toString(Polynomial p) {
     	String st = "";
-    	  ArrayList<Integer> parray = p.coefficients;
+    	  List<Integer> parray = p.coefficients;
     	  st  = new Integer(parray.get(0)).toString() + st;
     	  for (int i=0;i<parray.size();i++) {
     	    if (parray.get(i)!=0)
@@ -70,15 +71,28 @@ public class Polynomial {
     public Polynomial add(Polynomial p2) {
         List<Integer> polylist1 = this.coefficients;
         List<Integer> polylist2 = p2.coefficients;
-        List<Integer> newpoly = null;
+        List<Integer> newpoly = new ArrayList<>();
         int size1 = polylist1.size();
         int size2 = polylist2.size();
         int size = size1;
-        if(size1 < size2) size = size2;
+        int minS = size2;
+        List<Integer> maxPoly = new ArrayList<>();
+        maxPoly = polylist1;
+        if(size1 < size2) {
+            size = size2;
+            minS = size1;
+            maxPoly = polylist2;
+        }
+        for(int i=0;i<=size;i++) {
+            newpoly.add(0);
+        }
         int value;
-        for(int i=0; i<size; i++){
+        for(int i=0; i<minS; i++){
             value = polylist1.get(i) + polylist2.get(i);
-            newpoly.add(i,value);
+            newpoly.set(i,value);
+        }
+        for(int i=minS;i<size;i++) {
+            newpoly.set(i, maxPoly.get(i));
         }
         System.out.println(newpoly);
         return new Polynomial(newpoly);
@@ -87,15 +101,18 @@ public class Polynomial {
     public Polynomial subtract(Polynomial p2) {
         List<Integer> polylist1 = this.coefficients;
         List<Integer> polylist2 = this.coefficients;
-        List<Integer> newpoly = null;
+        List<Integer> newpoly = new ArrayList<>();
         int size1 = polylist1.size();
         int size2 = polylist2.size();
         int size = size1;
         if(size1<size2) size=size2;
+        for(int i=0;i<=size;i++) {
+            newpoly.add(0);
+        }
         int value;
         for(int i=0; i<size; i++){
             value = polylist1.get(i) - polylist2.get(i);
-            newpoly.add(i,value);
+            newpoly.set(i,value);
         }
         System.out.println(newpoly);
         return new Polynomial(newpoly);
