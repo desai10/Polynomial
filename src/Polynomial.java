@@ -94,7 +94,7 @@ public class Polynomial {
         for(int i=minS;i<size;i++) {
             newpoly.set(i, maxPoly.get(i));
         }
-        System.out.println(newpoly);
+        //System.out.println(newpoly);
         return new Polynomial(newpoly);
     }
 
@@ -114,38 +114,46 @@ public class Polynomial {
             value = polylist1.get(i) - polylist2.get(i);
             newpoly.set(i,value);
         }
-        System.out.println(newpoly);
+        //System.out.println(newpoly);
         return new Polynomial(newpoly);
     }
 
     public Polynomial multiply(Polynomial p2) {
     	List<Integer> p1array = this.coefficients;
     	  List<Integer> p2array = p2.coefficients;
+    	  System.out.println(p1array.size()-p2array.size());
     	  if(p1array.size()<p2array.size()) {
-    	    for (int i=0;i<p2array.size()-p1array.size();i++) {
+    	    for (int i=p1array.size();i<p2array.size();i++) {
     	      p1array.add(0);
     	    }
     	  }
     	  else {
-    	    for (int i=0;i<p1array.size()-p2array.size();i++) {
-    	      p2array.add(0);
+    	    for (int i=p2array.size();i<p1array.size();i++) {
+//    	    	System.out.println("diff: "+(p1array.size()-p2array.size()));
+//    	    	System.out.println("ivalue: "+i);
+    	    	p2array.add(0);
     	    }
     	  }
+//    	  System.out.println(p1array.size()-p2array.size());
+//    	  System.out.println(p1array);
+//    	  System.out.println(p2array);
     	  Polynomial ans = multiplyRecursive(p2array,0,p1array.get(0));
+    	  System.out.println("0: "+ans.coefficients);
     	  for (int i=1;i<p1array.size();i++) {
-    	    ans = ans.add(multiplyRecursive(p2array,i,p1array.get(1)));
+    	    ans = ans.add(multiplyRecursive(p2array,i,p1array.get(i)));
     	  }
     	  System.out.println(ans.coefficients);
     	  return ans;
     }
-    Polynomial multiplyRecursive(List<Integer> p1, int index, int coeff) {
-
+    Polynomial multiplyRecursive(List<Integer> p2, int index, int coeff) {
+    	ArrayList<Integer> p1 = new ArrayList<>(p2);
     	  for (int i=0;i<index;i++) {
     	    p1.add(0,0);
     	  }
     	  for (int i=0;i<p1.size();i++) {
     	    p1.set(i,p1.get(i)*coeff);
     	  }
+    	  
     	  return new Polynomial(p1);
     	}
 
